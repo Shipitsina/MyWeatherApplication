@@ -1,9 +1,9 @@
-package ru.gb.shipitsina.myweatherapplication
+package ru.gb.shipitsina.myweatherapplication.ui.main.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ru.gb.shipitsina.myweatherapplication.R
 import ru.gb.shipitsina.myweatherapplication.databinding.MainActivityBinding
-import ru.gb.shipitsina.myweatherapplication.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 
