@@ -2,7 +2,7 @@ package ru.gb.shipitsina.myweatherapplication.ui.main.model
 
 class RepositoryImpl: Repository {
     override fun getWeatherFromServer(): Weather = Weather()
+    override fun getWeatherFromLocalStorageRus(): List<Weather> = getRussianCities()
 
-    override fun getWeatherFromLocalStorage(): List<Weather> = listOf(Weather(getDefaultCity(), 2, 3),
-    Weather(getDefaultCity(), 10, 15))
+    override fun getWeatherFromLocalStorageWorld(): List<Weather> = getWorldCities()
 }
