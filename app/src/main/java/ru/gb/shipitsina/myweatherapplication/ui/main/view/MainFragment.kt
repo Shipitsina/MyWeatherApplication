@@ -77,7 +77,7 @@ class MainFragment : Fragment() {
                 } else {
                     binding.mainFragmentFAB.setImageResource(R.drawable.ic_world)
                 }
-                viewModel.getWeatherFromLocalSource(isRus)
+                viewModel.getWeatherFromLocalSource()
         })
     }
 
