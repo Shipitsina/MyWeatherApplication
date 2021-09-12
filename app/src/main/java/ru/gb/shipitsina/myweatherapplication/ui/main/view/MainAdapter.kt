@@ -1,5 +1,6 @@
 package ru.gb.shipitsina.myweatherapplication.ui.main.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,13 +29,19 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
         holder.bind(weatherData[position])
     }
 
+    fun setWeather(weather: List<Weather>){
+        weatherData = weather
+    }
+
     override fun getItemCount(): Int = weatherData.size
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(weather: Weather) {
-            itemView.findViewById<TextView>(R.id.cityName).text = weather.city.name
-            itemView.setOnClickListener{
-                listener?.onItemClick(weather)
+            itemView.apply {
+                findViewById<TextView>(R.id.cityName).text = weather.city.name
+                setOnClickListener {
+                    listener?.onItemClick(weather)
+                }
             }
         }
     }
