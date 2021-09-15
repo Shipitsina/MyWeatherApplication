@@ -11,24 +11,31 @@ import kotlin.random.Random
 class MainViewModel : ViewModel() {
 
     private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData()
+    private var liveDataIsRusToObserve: MutableLiveData<Boolean> = MutableLiveData(true)
     private val repository: Repository = RepositoryImpl()
+
     val liveData: LiveData<AppState> = liveDataToObserve
+    val liveDataIsRus: LiveData<Boolean> = liveDataIsRusToObserve
+
 
     fun getWeatherFromLocalSource() = getDataFromLocalSource()
     fun getWeatherFromRemoteSource() = getDataFromLocalSource()
+
+    fun onLanguageChange(){
+        liveDataIsRusToObserve.value = liveDataIsRusToObserve.value == false
+    }
 
     private fun getDataFromLocalSource(){
         liveDataToObserve.value= AppState.Loading
 
         Thread{
-            Thread.sleep(5000)
-            if (Random.nextBoolean()){
-                val weatherList = repository.getWeatherFromLocalStorage()
-                for (weather in weatherList)
-            liveDataToObserve.postValue(AppState.Success(weather))
-            } else{
-                liveDataToObserve.postValue(AppState.Error(Exception("Нет интернета")))
+            Thread.sleep(2000)
+            liveDataToObserve.postValue(AppState.Success(
+                if (liveDataIsRusToObserve.value  == true){repository.getWeatherFromLocalStorageRus()}
+            else {
+                    repository.getWeatherFromLocalStorageWorld()
             }
+            ))
         }.start()
     }
 }
