@@ -22,52 +22,90 @@
 
     </FrameLayout>
 
-    <LinearLayout
-        android:gravity="center"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mainView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_gravity="center"
-            android:id="@+id/city"
+
+    <TextView
+            android:id="@+id/cityName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            tools:text="Погода"/>
-
-        <TextView
-        android:layout_gravity="center"
-        android:id="@+id/lat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        tools:text="123"/>
-
-        <TextView
             android:layout_gravity="center"
-            android:id="@+id/lon"
+            android:layout_marginTop="@dimen/city_name_margin_top"
+            android:text=""
+            android:textSize="@dimen/city_name_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Москва" />
+
+        <TextView
+            android:id="@+id/cityCoordinates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            tools:text="123"/>
+            android:layout_marginTop="@dimen/margin_5_dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cityName"
+            tools:text="lt/ln: 55.755826, 37.617299900000035"/>
 
         <TextView
-            android:layout_gravity="center"
-            android:id="@+id/temperature"
+            android:id="@+id/weatherCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            tools:text="1"/>
+            android:layout_marginTop="@dimen/margin_15_dp"
+            android:textSize="@dimen/feels_like_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cityCoordinates"
+            tools:text="Облачно" />
+        <TextView
+            android:id="@+id/temperatureLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15_dp"
+            android:text="@string/temperature_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weatherCondition" />
 
         <TextView
-            android:layout_gravity="center"
-            android:id="@+id/feelsLike"
+            android:id="@+id/temperatureValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
-            tools:text="0"/>
-    </LinearLayout>
+            android:layout_marginTop="@dimen/margin_15_dp"
+            android:textSize="@dimen/temperature_value_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/temperatureLabel"
+            tools:text="+15" />
+
+        <TextView
+            android:id="@+id/feelsLikeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15_dp"
+            android:text="@string/feels_like_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/temperatureValue" />
+
+        <TextView
+            android:id="@+id/feelsLikeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15_dp"
+            android:textSize="@dimen/feels_like_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feelsLikeLabel"
+            tools:text="-23" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
