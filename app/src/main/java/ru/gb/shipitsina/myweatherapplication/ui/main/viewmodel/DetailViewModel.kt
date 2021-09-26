@@ -7,14 +7,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.gb.shipitsina.myweatherapplication.ui.main.model.*
+import ru.gb.shipitsina.myweatherapplication.ui.main.model.database.HistoryEntity
+import ru.gb.shipitsina.myweatherapplication.ui.main.view.App
 import java.text.ParseException
+import java.util.*
 
-const val MAIN_LINK = "https://api.weather.yandex.ru/v2/forecast?"
+const val MAIN_LINK = "https://api.weather.yandex.ru/v2/informers?"
 
 // следит за тем, что мы сходили на сервер, показали лоадер, отобразили какие-то данные
 class DetailViewModel : ViewModel() {
 
     private val repository: DetailsRepository = DetailsRepositoryImpl(RemoteDataSource())
+    private val localRepository: LocalRepository = LocalRepositoryImpl(App.getHistoryDao())
     private val detailsLiveData = MutableLiveData<AppState>()
 
     val liveData: LiveData<AppState> = detailsLiveData
@@ -60,5 +64,17 @@ class DetailViewModel : ViewModel() {
         } else {
             AppState.Error(ParseException("Не смог распарсить json!", 0))
         }
+    }
+
+    fun saveWeather(weather: Weather){
+        localRepository.saveEntity(
+            HistoryEntity(
+                id = 0,
+                city = weather.city.name,
+                temperature = weather.temperature,
+                condition = weather.condition,
+                timestamp = Date().time
+            )
+        )
     }
 }

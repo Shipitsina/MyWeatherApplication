@@ -79,7 +79,7 @@ class DetailFragment : Fragment() {
                 binding.loadingLoyalt.hide()
                 val weather = state.weather.first()
 
-
+                viewModel.saveWeather(weather)
 
                 with(binding) {
 

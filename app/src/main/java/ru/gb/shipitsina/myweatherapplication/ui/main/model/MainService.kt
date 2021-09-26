@@ -48,7 +48,7 @@ class MainService(name: String = "MainService"): IntentService(name) {
     private fun loadWeather(lat: Double, lon: Double) {
         var urlConnection: HttpsURLConnection? = null
         val uri = try {
-            URL("https://api.weather.yandex.ru/v2/forecast?lat=${lat}&lon=${lon}")
+            URL("https://api.weather.yandex.ru/v2/informers?lat=${lat}&lon=${lon}")
         }catch (e: MalformedURLException){
             onMalformedURL()
             return
