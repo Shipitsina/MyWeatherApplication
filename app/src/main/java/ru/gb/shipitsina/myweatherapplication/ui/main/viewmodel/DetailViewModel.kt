@@ -37,14 +37,14 @@ class DetailViewModel : ViewModel() {
 
                 override fun onResponse(call: Call<WeatherDTO>, response: Response<WeatherDTO>) {
                     response.body()?.let {
-                        detailsLiveData.postValue(checkResponse(it))
+                        detailsLiveData.postValue(checkResponse(it, weather.city))
                     }
                 }
 
             })
     }
 
-    private fun checkResponse(response: WeatherDTO): AppState {
+    private fun checkResponse(response: WeatherDTO, city: City): AppState {
         val factDTO = response.fact
 
         return if (factDTO?.condition != null
@@ -55,6 +55,7 @@ class DetailViewModel : ViewModel() {
             AppState.Success(
                 listOf(
                     Weather(
+                        city = city,
                         temperature = factDTO.temp,
                         feelsLike = factDTO.feels_Like,
                         condition = factDTO.condition
