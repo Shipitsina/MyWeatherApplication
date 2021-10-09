@@ -48,7 +48,7 @@ class MainService(name: String = "MainService"): IntentService(name) {
     private fun loadWeather(lat: Double, lon: Double) {
         var urlConnection: HttpsURLConnection? = null
         val uri = try {
-            URL("https://api.weather.yandex.ru/v2/forecast?lat=${lat}&lon=${lon}")
+            URL("https://api.weather.yandex.ru/v2/informers?lat=${lat}&lon=${lon}")
         }catch (e: MalformedURLException){
             onMalformedURL()
             return
@@ -77,7 +77,7 @@ class MainService(name: String = "MainService"): IntentService(name) {
     }
     
     private fun onResponse(weatherDTO: WeatherDTO) {
-        val fact = weatherDTO.fact?.let {
+        weatherDTO.fact?.let {
             onSuccessResponse(it)
         } ?: onEmptyResponse()
     }
@@ -98,7 +98,11 @@ class MainService(name: String = "MainService"): IntentService(name) {
 
     private fun onErrorResponse(s: String) {
 
-        TODO("Not yet implemented")
+        LocalBroadcastManager.getInstance(this)
+            .sendBroadcast(
+                Intent(DETAILS_INTENT_FILTER)
+                    .putExtra(RESULT_EXTRA, ERROR_EMPTY_DATA_RESULT)
+            )
     }
 
     private fun onEmptyResponse() {

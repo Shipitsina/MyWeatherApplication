@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.annotation.RequiresApi
 import ru.gb.shipitsina.myweatherapplication.R
 import ru.gb.shipitsina.myweatherapplication.databinding.MainActivityBinding
@@ -32,42 +34,25 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
         }
-
-      /* binding.ok.setOnClickListener{
-            val uri = URL(binding.url.text.toString())
-
-            val handler = Handler(Looper.getMainLooper())
-
-            Thread{
-                goToInternet(uri, handler)
-            }.start()
-
-        }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    private fun goToInternet(uri: URL, handler: Handler) {
-        var urlConnection: HttpsURLConnection? = null
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
-        try {
-            urlConnection = uri.openConnection() as HttpsURLConnection
-            urlConnection.apply {
-                requestMethod = "GET"
-                readTimeout = 10000
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.idHistory -> {
+                supportFragmentManager.apply {
+                    beginTransaction()
+                        .replace(R.id.container, HistoryFragment())
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+                true
             }
-            val reader = BufferedReader(InputStreamReader(urlConnection.inputStream))
-            val result = reader.lines().collect(Collectors.joining("\n"))
-
-            handler.post{
-                binding.webview.loadData(result,"text/html; charset=utf-8","utf-8")
-            }
-
-
-
-        } catch (e: Exception){
-            Log.e("","FAILED",e)
-        } finally {
-            urlConnection?.disconnect()
-        }*/
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
